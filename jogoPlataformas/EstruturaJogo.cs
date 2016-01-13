@@ -21,6 +21,7 @@ namespace jogoPlataformas
         Texture2D opJogar;
         Texture2D opSair;
         bool disparou = false;
+        Jogo jogo;
 
         public EstruturaJogo(Game game)
         {
@@ -31,18 +32,22 @@ namespace jogoPlataformas
             estado = 0;
 
             opMenu = 1;
+
+            jogo = new Jogo(game);
+            jogo.Initialize();
         }
         public void LoadContent()
         {
             opJogar = game.Content.Load<Texture2D>("jogar");
             opSair = game.Content.Load<Texture2D>("sair");
+            jogo.LoadContent();
         }
         public void Update(GameTime gameTime)
         {
             //atualizar jogo
             if (estado == 0) atualizarMenu();
             //atualizar menu
-
+            if (estado == 1) if(jogo.Update(gameTime)) estado=0;
         }
         public void atualizarMenu()
         {
@@ -100,7 +105,7 @@ namespace jogoPlataformas
                 desenhaMenu(gameTime, spriteBatch);
             //desenhar jogo
             if (estado == 1)
-                desenhaJogo(gameTime, spriteBatch);
+                jogo.Draw(gameTime,dispositivo, spriteBatch);
             
             //terminar desenhar
             spriteBatch.End();
@@ -127,9 +132,6 @@ namespace jogoPlataformas
             spriteBatch.Draw(opSair, rtemp, cor);
 
             
-        }
-        public void desenhaJogo(GameTime gameTime, SpriteBatch spriteBatch)
-        {
         }
 
     }
