@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace jogoPlataformas
 {
@@ -35,6 +36,20 @@ namespace jogoPlataformas
 
             jogo = new Jogo(game);
             jogo.Initialize();
+
+            //login
+            frm_login f = new frm_login();
+            DialogResult resposta=f.ShowDialog();
+            if (resposta == DialogResult.OK)
+            {
+                MessageBox.Show("ok");
+                //testar login com servidor
+                //guardar inventario
+            }
+            else
+            {
+                MessageBox.Show("cancel");
+            }
         }
         public void LoadContent()
         {
@@ -57,14 +72,14 @@ namespace jogoPlataformas
 
             gamepad = GamePad.GetState(PlayerIndex.One);
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back ==Microsoft.Xna.Framework.Input.ButtonState.Pressed)
                 game.Exit();
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.A == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
                 return;
 
 
-            if (teclado[Keys.Down] == KeyState.Down || teclado[Keys.Up] == KeyState.Down || teclado[Keys.Enter] == KeyState.Down)
+            if (teclado[Microsoft.Xna.Framework.Input.Keys.Down] == KeyState.Down || teclado[Microsoft.Xna.Framework.Input.Keys.Up] == KeyState.Down || teclado[Microsoft.Xna.Framework.Input.Keys.Enter] == KeyState.Down)
             {
                 if (disparou == true) return;
                 disparou = true;
@@ -72,12 +87,12 @@ namespace jogoPlataformas
             else
                 disparou = false;
 
-            if (teclado[Keys.Up] == KeyState.Down)
+            if (teclado[Microsoft.Xna.Framework.Input.Keys.Up] == KeyState.Down)
             {
                 disparou = true;
                 opMenu--;
             }
-            if (teclado[Keys.Down] == KeyState.Down)
+            if (teclado[Microsoft.Xna.Framework.Input.Keys.Down] == KeyState.Down)
             {
                 opMenu++;
                 disparou = true;
@@ -85,7 +100,7 @@ namespace jogoPlataformas
             if (opMenu < 1) opMenu = 2;
             if (opMenu > 2) opMenu = 1;
 
-            if (teclado[Keys.Enter] == KeyState.Down)
+            if (teclado[Microsoft.Xna.Framework.Input.Keys.Enter] == KeyState.Down)
             {
                 if (opMenu == 1) estado = 1;
                 if (opMenu == 2) game.Exit();
